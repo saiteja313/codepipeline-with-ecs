@@ -17,6 +17,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
+      - ls
       - docker build -t $REPOSITORY_URI:latest . #This uses Dockerfile in the repository to copy Java binary and create a Docker image
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
   post_build:
