@@ -28,5 +28,10 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
       - printf '[{"name":"hello-world","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      # - echo "configure ecs task definition file"
+      # - sed -i "s@{{AWS_ACCOUNT_ID}}@${AWS_ACCOUNT_ID}@g" task-definition.json
+      # - sed -i "s@{{AWS_REGION}}@${AWS_REGION}@g" task-definition.json
+      # - sed -i "s@{{APPLICATION_NAME_1}}@${APPLICATION_NAME_1}@g" task-definition.json
+      # - sed -i "s@{{APPLICATION_NAME_2}}@${APPLICATION_NAME_2}@g" task-definition.json
 artifacts:
     files: imagedefinitions.json
