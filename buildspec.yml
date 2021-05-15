@@ -30,8 +30,8 @@ phases:
       - sed -i "s@{{AWS_ACCOUNT_ID}}@${AWS_ACCOUNT_ID}@g" task-definition.json
       - sed -i "s@{{AWS_REGION}}@${AWS_REGION}@g" task-definition.json
       - sed -i "s@{{APPLICATION_NAME_1}}@hello-world@g" task-definition.json
-      - sed -i "s@{{APPLICATION_NAME_2}}@hello-world2@g" task-definition.json
+      - sed -i "s@{{APPLICATION_NAME_2}}@hellow-world2@g" task-definition.json
       - echo Writing image definitions file...
-      - printf '[{"name":"hello-world","imageUri":"%s"},{"name":"hello-world2","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json # name should be name of container in task definition
+      - printf '[{"name":"hello-world","imageUri":"%s"},{"name":"hellow-world2","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json # name should be name of container in task definition
 artifacts:
     files: imagedefinitions.json
