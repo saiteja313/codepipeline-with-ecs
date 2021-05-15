@@ -4,7 +4,7 @@ FROM openjdk:11.0.5-jre
 workdir /opt/sleepy/
 RUN mkdir -p /opt/sleepy && cd /opt/sleepy/
 
-COPY ./sleepy.java /opt/sleepy/
+COPY ./Sleepy.java /opt/sleepy/
 RUN javac Sleepy.java && jar -cvf sleepy.jar Sleepy.class
 
 RUN chmod -R o+x /opt/sleepy
