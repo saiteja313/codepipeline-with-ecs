@@ -13,7 +13,7 @@ phases:
       - REPOSITORY_URI=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/hello-world
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG1=${COMMIT_HASH:=latest}1
-      - IMAGE_TAG2=${COMMIT_HASH:=latest}1
+      - IMAGE_TAG2=${COMMIT_HASH:=latest}2
   build:
     commands:
       - echo Build started on `date`
@@ -36,5 +36,6 @@ phases:
       - sed -i "s@{{APPLICATION_NAME_2}}@hellow-world2@g" task-definition.json
       - echo Writing image definitions file...
       - printf '[{"name":"hello-world","imageUri":"%s"},{"name":"hellow-world2","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG1 $REPOSITORY_URI:$IMAGE_TAG2 > imagedefinitions.json # name should be name of container in task definition
+      - cat imagedefinitions.json
 artifacts:
     files: imagedefinitions.json
