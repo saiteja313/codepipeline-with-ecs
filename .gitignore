@@ -1,3 +1,6 @@
 task-definition.json_bk
 *.class
 *.jar
+appspec.yaml_bk
+create-service.json_bk
+backup
