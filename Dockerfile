@@ -5,6 +5,7 @@ workdir /opt/sleepy/
 RUN mkdir -p /opt/sleepy && cd /opt/sleepy/
 
 COPY ./Sleepy.java /opt/sleepy/
+ENV PATH="$JAVA_HOME/bin:${PATH}"
 RUN javac Sleepy.java && jar -cvf sleepy.jar Sleepy.class
 
 RUN chmod -R o+x /opt/sleepy
