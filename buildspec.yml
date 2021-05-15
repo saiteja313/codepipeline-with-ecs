@@ -12,26 +12,29 @@ phases:
       - AWS_ACCOUNT_ID=$(echo ${CODEBUILD_BUILD_ARN} | cut -d ':' -f 5)
       - REPOSITORY_URI=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/hello-world
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - IMAGE_TAG1=${COMMIT_HASH:=latest}1
+      - IMAGE_TAG2=${COMMIT_HASH:=latest}1
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
       - ls
       - docker build -t $REPOSITORY_URI:latest . #This uses Dockerfile in the repository to copy Java binary and create a Docker image
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG1
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG2
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker images...
       - docker push $REPOSITORY_URI:latest
-      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - docker push $REPOSITORY_URI:$IMAGE_TAG1
+      - docker push $REPOSITORY_URI:$IMAGE_TAG2
       - echo "configure ecs task definition file"
       - sed -i "s@{{AWS_ACCOUNT_ID}}@${AWS_ACCOUNT_ID}@g" task-definition.json
       - sed -i "s@{{AWS_REGION}}@${AWS_REGION}@g" task-definition.json
       - sed -i "s@{{APPLICATION_NAME_1}}@hello-world@g" task-definition.json
       - sed -i "s@{{APPLICATION_NAME_2}}@hellow-world2@g" task-definition.json
       - echo Writing image definitions file...
-      - printf '[{"name":"hello-world","imageUri":"%s"},{"name":"hellow-world2","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json # name should be name of container in task definition
+      - printf '[{"name":"hello-world","imageUri":"%s"},{"name":"hellow-world2","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG1 $REPOSITORY_URI:$IMAGE_TAG2 > imagedefinitions.json # name should be name of container in task definition
 artifacts:
     files: imagedefinitions.json
