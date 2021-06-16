@@ -6,6 +6,8 @@ phases:
       docker: 19
   pre_build:
     commands:
+      - yum update -y
+      - yum install -y bind-utils
       - echo nslookup
       - nslookup testing-ca-074598670345.d.codeartifact.us-east-2.amazonaws.com
       - echo Logging in to Amazon ECR...
