@@ -12,8 +12,6 @@ phases:
       - yum update -y
       - yum install -y fio
       - lsblk
-      - echo nslookup
-      - nslookup testing-ca-074598670345.d.codeartifact.us-east-2.amazonaws.com
       - fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=random_read_write.fio --bs=4k --iodepth=256 --size=2500M --readwrite=randrw --rwmixread=10
       - echo Logging in to Amazon ECR...
       - aws --version
