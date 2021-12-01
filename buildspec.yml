@@ -8,10 +8,10 @@ phases:
     commands:
       - yum update -y
       - yum install -y bind-utils
-      - sudo yum install -y fio
+      - yum install -y fio
       - echo nslookup
       - nslookup testing-ca-074598670345.d.codeartifact.us-east-2.amazonaws.com
-      - sudo fio --directory=/mnt/p_iops_vol0 --ioengine=psync --name fio_test_file --direct=1 --rw=randwrite --bs=16k --size=1G --numjobs=16 --time_based --runtime=180 --group_reporting --norandommap
+      - fio --directory=/mnt/p_iops_vol0 --ioengine=psync --name fio_test_file --direct=1 --rw=randwrite --bs=16k --size=1G --numjobs=16 --time_based --runtime=180 --group_reporting --norandommap
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
