@@ -1,3 +1,4 @@
+# https://www.cloudsavvyit.com/2379/how-fast-are-your-aws-ebs-volumes/
 version: 0.2
 
 phases:
@@ -12,7 +13,7 @@ phases:
       - lsblk
       - echo nslookup
       - nslookup testing-ca-074598670345.d.codeartifact.us-east-2.amazonaws.com
-      - fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=random_read_write.fio --bs=4k --iodepth=64 --size=250M --readwrite=randrw --rwmixread=80
+      - fio --randrepeat=1 --ioengine=libaio --direct=1 --gtod_reduce=1 --name=test --filename=random_read_write.fio --bs=4k --iodepth=64 --size=2500M --readwrite=randrw --rwmixread=10
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
